@@ -79,6 +79,8 @@ dependencies {
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
