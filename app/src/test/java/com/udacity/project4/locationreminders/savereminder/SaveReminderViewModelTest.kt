@@ -13,6 +13,7 @@ import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.pauseDispatcher
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat

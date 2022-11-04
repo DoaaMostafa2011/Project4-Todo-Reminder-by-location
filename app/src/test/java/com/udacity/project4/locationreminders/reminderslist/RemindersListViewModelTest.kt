@@ -10,6 +10,8 @@ import com.udacity.project4.locationreminders.data.FakeDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsNot.not
@@ -60,14 +62,14 @@ class RemindersListViewModelTest {
     }
 
     @Test
-    fun check_loading() {
+    fun check_loading()  = runBlockingTest{
         mainCoroutineRule.pauseDispatcher()
         reminderListViewModel.loadReminders()
         assertThat(reminderListViewModel.showLoading.getOrAwaitValue(), `is`(true))
     }
 
     @Test
-    fun returnError() {
+    fun returnError() = runBlockingTest{
         fakeDataSource = FakeDataSource(null)
         reminderListViewModel = RemindersListViewModel(ApplicationProvider.getApplicationContext(), fakeDataSource)
         fakeDataSource.setReturnError(true)

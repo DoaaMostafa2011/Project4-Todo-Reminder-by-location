@@ -8,7 +8,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -87,9 +87,20 @@ dependencies {
     //Coroutines Dependencies
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
+    // Koin Core features
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    // Koin Test features
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
+    androidTestImplementation "io.insert-koin:koin-test:$koinVersion"
+
     //Koin
     implementation "io.insert-koin:koin-android:$koinVersion"
-    implementation "io.insert-koin:koin-androidx-viewmodel:$koinVersion"
+
+    androidTestImplementation "io.insert-koin:koin-android:$koinVersion"
+
+    //implementation("io.insert-koin:koin-test-junit5:$koinVersion")
+    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
+    androidTestImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
 
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
 
@@ -126,11 +137,11 @@ dependencies {
     androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     // Once https://issuetracker.google.com/127986458 is fixed this can be testImplementation
-    implementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    debugImplementation "androidx.fragment:fragment-testing:1.6.0-alpha03"
     implementation "androidx.test:core:$androidXTestCoreVersion"
-    implementation "androidx.fragment:fragment:$fragmentVersion"
+    implementation "androidx.fragment:fragment:1.6.0-alpha03"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    //androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation('org.koin:koin-test:2.0.1') { exclude group: 'org.mockito' }
 
 
