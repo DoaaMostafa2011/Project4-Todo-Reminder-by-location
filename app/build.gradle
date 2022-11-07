@@ -5,15 +5,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
-
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "29.0.3"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.udacity.project4"
@@ -30,18 +24,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    // for testing idling resources
     testOptions.unitTests {
         includeAndroidResources = true
         returnDefaultValues = true
     }
 
-    //dataBinding {
-    //    enabled = true
-    //    enabledForTests = true
-    //}
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
+
+//    dataBinding{
+//        enabledForTests = true
+//    }
+//
+//    buildFeatures {
+//        dataBinding true
+//    }
+
     buildFeatures {
         dataBinding true
     }
@@ -65,11 +73,6 @@ dependencies {
     //Navigation dependencies
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
-    testImplementation project(path: ':app')
-    testImplementation project(path: ':app')
-    androidTestImplementation project(path: ':app')
-    androidTestImplementation project(path: ':app')
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
@@ -87,26 +90,10 @@ dependencies {
     //Coroutines Dependencies
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
-    // Koin Core features
-    implementation "io.insert-koin:koin-core:$koinVersion"
-    // Koin Test features
-    testImplementation "io.insert-koin:koin-test:$koinVersion"
-    androidTestImplementation "io.insert-koin:koin-test:$koinVersion"
-
     //Koin
-    implementation "io.insert-koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
-    androidTestImplementation "io.insert-koin:koin-android:$koinVersion"
-
-    //implementation("io.insert-koin:koin-test-junit5:$koinVersion")
-    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
-    androidTestImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
-
-    implementation platform('com.google.firebase:firebase-bom:30.4.1')
-
-    //firebase
-    implementation 'com.google.firebase:firebase-auth:21.0.8'
-    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
@@ -129,6 +116,7 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestRulesVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    // (Added) InstantTaskExecutor Rule
     androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     androidTestImplementation "org.robolectric:annotations:$robolectricVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
@@ -137,18 +125,25 @@ dependencies {
     androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     // Once https://issuetracker.google.com/127986458 is fixed this can be testImplementation
-    debugImplementation "androidx.fragment:fragment-testing:1.6.0-alpha03"
+    implementation "androidx.fragment:fragment-testing:$fragmentVersion"
     implementation "androidx.test:core:$androidXTestCoreVersion"
-    implementation "androidx.fragment:fragment:1.6.0-alpha03"
+    implementation "androidx.fragment:fragment:$fragmentVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
-    //androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation('org.koin:koin-test:2.0.1') { exclude group: 'org.mockito' }
-
 
 
     //Maps & Geofencing
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
     implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
 
+    // firebase auth Ui
+    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
+
+    // linking the tests to the main app
+    testImplementation project(path: ':app')
+    androidTestImplementation project(path: ':app')
+
+    // for solving multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 }
